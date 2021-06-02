@@ -3,12 +3,13 @@
 
 ### Problem description ###
 When updating an object containing a nested child object (of custom-defined type), Spring's default converter  was 
-not raising an error if the id of the child object was wrong. It simply returned null. As the child object was 
-a nullable field, no constraint was being violated, so this behavior ended up not giving any errors in the binding 
-result.
+not raising an error if the id of the child object was not found in the database. It simply returned null. As the child 
+object was a nullable field, no constraint was being violated, so this behavior ended up not giving any errors in 
+the binding result.
 
 ### App description ###
-This small app contains two classes, a Pet and an Owner. The Pet class has an optional Owner.
+This small app contains two classes, a Pet and an Owner. The Pet class has an optional Owner, and the purpose of the 
+app is to update the pet with id = 1.
 A custom converter has been defined, converting from String to Owner, by looking in the repository for the string 
 value (which is the owner id). If it cannot be found, it raises an exception. Subsequently, this has the effect that 
 the conversion cannot be completed, and the failed result is added as an error in the binding result of the controller.
